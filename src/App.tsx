@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Dashbord from './components/Dashbord';
+import Popup from './components/Popup';
+
 
 function App() {
+  const [isPopupVisible, setIsPopupVisible] = useState(true)
+  const [userName, setUserName] = useState('')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    {
+    isPopupVisible ?  
+    <Popup setName={setUserName} name={userName} saveName={() => setIsPopupVisible(false)} /> 
+    : <Dashbord userName ={userName}/>
+    }
+   
+    </>
   );
 }
 
