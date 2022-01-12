@@ -7,9 +7,10 @@ type CardProps = {
   item: CardItem
   columnName: string
   userName: string
-  changeDesc: any
+  changeDesc: (value:string, id:number) => void
+  id: number
 }
-const Card:React.FC <CardProps> = ({item, columnName, userName, changeDesc}) => {
+const Card:React.FC <CardProps> = ({item, columnName, userName, changeDesc, id,}) => {
 
   const [isPopupVisible, setIsPopupVisible] = useState(false)
 
@@ -17,7 +18,7 @@ const Card:React.FC <CardProps> = ({item, columnName, userName, changeDesc}) => 
     <>
       { isPopupVisible ?
         <CardPopup desc={item.description} userName = {userName} name = {item.name} close = {() => setIsPopupVisible(false)} 
-        columnName={columnName} changeDesc ={changeDesc} />
+        columnName={columnName} changeDesc ={changeDesc} id = {id} />
         :
         <Wrapper onClick={() => setIsPopupVisible(true)}>
           <Container>
@@ -64,5 +65,5 @@ margin: 5px;
 `
 const Img = styled.img`
 width:100%;
-height:100%
+height:100%;
 `

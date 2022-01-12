@@ -6,17 +6,18 @@ type TextAreaProps = {
   placeName:string
   btnName:string
   close:any // any?
-  change: (val:string) => void
+  change: (val:string, id: number) => void
+  id: number
 }
 
-const TextAreaField:React.FC <TextAreaProps>= ({placeName, btnName, close, change}) => {
+const TextAreaField:React.FC <TextAreaProps>= ({placeName, btnName, close, change, id}) => {
   const [name, setName] = useState('')
 
   return (
     <div>
       <Textarea value={name} onChange={(evt) => setName(evt.target.value)} placeholder={placeName}/>
       <Div>
-      <Button onClick={() => change(name)} disabled={!name.length} >{btnName}</Button>
+      <Button onClick={() => change(name, id)} disabled={!name.length} >{btnName}</Button>
       <ImgContainer onClick={close}><img src="/assets/close.svg" alt="close"/></ImgContainer>
       </Div>
     </div>

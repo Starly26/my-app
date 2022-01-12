@@ -7,7 +7,6 @@ type ChangeProps = {
 
 const ChangeNameField:React.FC <ChangeProps> = ({name, setName}) => {
   const [isVisible, setIsVisible] = useState(false)
-
   return (
     <div>
       { 

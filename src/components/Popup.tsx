@@ -38,7 +38,7 @@ const Container = styled.div`
   align-items: center;
   border-radius: 20px;
   background-color: #fff;
-  padding 40px
+  padding: 40px;
 `
 
 const Button = styled.button`

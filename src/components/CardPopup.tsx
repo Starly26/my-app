@@ -1,3 +1,4 @@
+import { NONAME } from 'dns'
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import ChangeNameField from './ChangeNameField'
@@ -6,13 +7,14 @@ import TextAreaField from './TextAreaField'
 type CardPopupProps = {
 name:string
 columnName:string
-close:any
+close?:any
 userName: string
-changeDesc:any
+changeDesc:(value:string, id:number) => void
 desc:string
+id:number
 }
 
-const CardPopup:React.FC <CardPopupProps>= ({name, close, columnName, userName, changeDesc, desc}) => {
+const CardPopup:React.FC <CardPopupProps>= ({name, close, columnName, userName, changeDesc, desc, id, }) => {
   const [CardName, setCardName] = useState(name)
   const [isVisibleDesc, setIsVisibleDesc] = useState(true)
 
@@ -27,19 +29,25 @@ const CardPopup:React.FC <CardPopupProps>= ({name, close, columnName, userName, 
            <img src="/assets/close.svg" />
          </ImgWrapper>
        </Wrapper1>
-       <p>в колонке {columnName}</p>
+       <p>в колонке <Underline>{columnName}</Underline></p>
        <h3>Описание</h3>
        {  isVisibleDesc ?
          <AreaWrapper>
           <TextAreaField placeName='Добавить более подробное описание' btnName='Сохранить' 
-         close={() => setIsVisibleDesc(false) } change={changeDesc}/>
+         close={() => setIsVisibleDesc(false) } change={changeDesc} id = {id}/>
          </AreaWrapper>
          : <div>
            <p>{desc}</p>
           <button onClick={() => setIsVisibleDesc(true) }>Изменить</button>
          </div>
        }
-       <p>Автор {userName}</p>  
+       <p>Автор <Underline>{userName}</Underline></p>
+       <h3>Действия</h3>  
+       <AreaWrapper>
+       {/* надо как-то сделать ID необязательным */}
+          <TextAreaField id={0} placeName='Напишите комментарий' btnName='Сохранить' 
+         close={changeDesc} change={changeDesc}/>
+         </AreaWrapper>
      </Wrapper>
    </Container>
   )
@@ -74,4 +82,7 @@ cursor: pointer;
 
 const AreaWrapper = styled.div`
 width: 60%;
+`
+const Underline = styled.span`
+  text-decoration: underline;
 `

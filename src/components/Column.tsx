@@ -13,23 +13,38 @@ type ColumnProps = {
 }
 
 const Column:React.FC <ColumnProps> = ({name, columnId, userName}) => {
+  
   const [columnName, setColumnName] = useState(name)
   const [isVisibleTextArea, setIsVisibleTextArea] = useState(false)
   const [cards, setCards] = useState<CardItem[]>([])
-  const [descriptions, setDescription] = useState('')
+
 
   const addCard = (name: string) => {
     const card: CardItem = { columnId, id: Date.now(), name, description: '', comments: [] }
     setCards([...cards, card])
+    console.log(card.id);
+    
   }
 
-  const changeNameCard = (name:string) => {
+  // const changeNameCard = (name:string, findId:number) => {
+  //  const index = cards.findIndex(card => card.id === findId)
+  //  setCards([...cards.slice(0, index), {...cards[index], name: name}  ,...cards.slice(index, cards.length)])
+  
+  // }
+
+  const addComment = (name:string) => {
 
   }
 
-  const changeDescriprion = (name:string) => {
-    const description = ''
-    setDescription(description + descriptions)
+  const changeComment = (name:string) => {
+    
+  }
+
+  const changeDescriprion = (name:string, findId:number) => {
+    const index = cards.findIndex(card => card.id === findId)
+    setCards([...cards.slice(0, index), {...cards[index], description: name}  ,...cards.slice(index, cards.length)])
+    console.log(cards[index].description);
+    
   }
 
   return (
@@ -40,11 +55,11 @@ const Column:React.FC <ColumnProps> = ({name, columnId, userName}) => {
       <ColumnWrapper>
       {
         cards.map((item) => {
-          return <Card item ={item} changeDesc = {changeDescriprion} userName = {userName} key ={item.id} columnName = {columnName}/>
+          return <Card item ={item} id={item.id} changeDesc = {changeDescriprion} userName = {userName} key ={item.id} columnName = {columnName}/>
         })
       }
       { isVisibleTextArea ?     
-        <TextAreaField change={addCard} close={() => setIsVisibleTextArea(false)} placeName='Ввести заголовок этой карточки' btnName='Add card'/>
+        <TextAreaField id = {0} change={addCard} close={() => setIsVisibleTextArea(false)} placeName='Ввести заголовок этой карточки' btnName='Add card'/>
         :
         <Button onClick={() => setIsVisibleTextArea (true)}>Add card</Button>
       }
